@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    image: python:3.10
+    working_dir: /workspace/ultravox
+    volumes:
+      - .:/workspace/ultravox
+    ports:
+      - "8000:8000"
+    command: >
+      bash -c "
+      mkdir -p ~/.local/bin &&
+      curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/.local/bin &&
+      just install &&
+      bash ./scripts/vscode_tunnel.sh"
